@@ -24,11 +24,11 @@ CREATE TABLE DISASTER_BENEFICIARY_VOLUNTEER (
 );
 
 INSERT INTO DISASTER_BENEFICIARY_VOLUNTEER (IdDisaster, TypeDisaster, LocationDis, TotalBeneficiaries, TotalVolunteers)
-SELECT D.IdDisaster, D.TypeDisaster, D.LocationDis, ISNULL(COUNT(B.IdBene), 0) AS TotalBeneficiaries, ISNULL((
+SELECT D.TypeDisaster, D.LocationDis, D.Severity, ISNULL(COUNT(B.IdBene), 0) AS TotalBeneficiaries, ISNULL((
 	SELECT COUNT(DISTINCT VH.NumVol) 
 	FROM VOLUNTEER_HOURS VH 
 	JOIN RELIEF_PROJECT RP ON VH.IdProject = RP.IdProject 
 	WHERE RP.IdDisaster = D.IdDisaster), 0) AS TotalVolunteers
 FROM DISASTER D
 JOIN BENEFICIARY B ON D.IdDisaster = B.IdDisaster
-GROUP BY D.IdDisaster, D.TypeDisaster, D.LocationDis;
+GROUP BY D.TypeDisaster, D.LocationDis, D.Severity, D.IdDisaster;

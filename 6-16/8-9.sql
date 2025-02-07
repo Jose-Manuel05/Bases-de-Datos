@@ -18,7 +18,7 @@ FROM StudentGPA
 ORDER BY GPA DESC;
 
 --9º
-SELECT ss.NumSubject, su.NameSubject, ss.YearCourse, COUNT(DISTINCT ss.DNIStudent) AS TotalStudents, CAST(AVG(ss.Mark * 1.0) AS DECIMAL(5, 2)) AS AverageMark
+SELECT ss.NumSubject, su.NameSubject, ss.YearCourse, COUNT(DISTINCT ss.DNIStudent) AS TotalStudents, CAST(AVG(ss.Mark * 1.0) AS DECIMAL(5, 1)) AS AverageMark
 FROM STUDENT_SUBJECT ss
 JOIN SUBJECT su ON ss.NumSubject = su.NumSubject
 GROUP BY ss.NumSubject, su.NameSubject, ss.YearCourse
